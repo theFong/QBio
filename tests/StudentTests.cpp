@@ -2,6 +2,7 @@
 #include "SrcMain.h"
 #include <string>
 #include <chrono>
+#include "FastaFile.cpp"
 
 // Helper function declarations (don't change these)
 extern bool CheckFileMD5(const std::string& fileName, const std::string& expected);
@@ -13,7 +14,12 @@ extern bool CheckTextFilesSame(const std::string& fileNameA,
 // (You will want to make multiple test cases with different sections)
 TEST_CASE("Function test cases", "[student]")
 {
-
+    SECTION("Read Fasta File")
+    {
+        FastaFile ff("input/Small_Test1.fasta");
+        bool test = (ff.GetHeader() == ">Small test 1" && ff.GetSequence() == "CGTGAATTCAT");
+        REQUIRE(test);
+    }
 }
 
 // Provided amino acid tests

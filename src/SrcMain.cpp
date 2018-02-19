@@ -3,5 +3,12 @@
 
 void ProcessCommandArgs(int argc, const char* argv[])
 {
-	// TODO
+	if(argc == 2)
+    {
+        // amino acid count
+    }
+    else if(argc == 3)
+    {
+        // sequence alignment
+    }
 }
