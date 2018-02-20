@@ -12,6 +12,8 @@
 #include <map>
 #include "Nwa.h"
 #include<iostream>
+#include <sstream>
+#include <fstream>
 
 Nwa::Nwa(const FastaFile &ff1,const FastaFile &ff2) : ff1(ff1),  ff2(ff2)
 {
@@ -110,7 +112,84 @@ void Nwa::SequenceAlign()
 
 void Nwa::Write()
 {
-    
+    std::ofstream out("match.result", std::ios::out|std::ios::trunc);
+    if (out.is_open())
+    {
+        out << "A: " << ff1.GetHeader() << std::endl;
+        out << "B: " << ff2.GetHeader() << std::endl;
+        out << "Score: " << this->score << std::endl;
+        
+        enum Line : char { SEQ1, SEQ2, SIML };
+        Line toggle = SEQ2
+        ;
+        
+        int seq1Count = 0;
+        int seq2Count = 0;
+        int simlCount = 0;
+        
+        for (int i = 0; i < seq1.size()*3; ++i) {
+            bool over = seq1Count >= seq1.size() || seq2Count >= seq2.size() || simlCount >= seq1.size();
+            if((i % 70) ==  0 || over)
+            {
+                if (over)
+                {
+                    if (seq1Count >= seq1.size())
+                    {
+                        seq1Count = 0;
+                    }
+                    else if (seq2Count >= seq2.size())
+                    {
+                        seq2Count =  0;
+                    }
+                    else if(simlCount >= seq1.size())
+                    {
+                        simlCount = 0;
+                    }
+                }
+                // set toggle
+                switch (toggle) {
+                    case SEQ1:
+                        toggle = SIML;
+                        break;
+                        
+                    case SEQ2:
+                        toggle = SEQ1;
+                        break;
+                        
+                    case SIML:
+                        toggle = SEQ2;
+                        break;
+                        
+                    default:
+                        break;
+                }
+
+                out << std::endl;
+            }
+            switch (toggle) {
+                case SEQ1:
+                    out << seq1[seq1Count];
+                    ++seq1Count;
+                    break;
+                    
+                case SEQ2:
+                    out << seq2[seq2Count];
+                    ++seq2Count;
+                    break;
+                    
+                case SIML:
+                    out << (seq1[simlCount] == seq2[simlCount] ? '|' : ' ');
+                    ++simlCount;
+                    break;
+                    
+                default:
+                    // do nothing
+                    break;
+            }
+            
+        }
+        out << std::endl << std::endl;
+    }
 }
 
 
