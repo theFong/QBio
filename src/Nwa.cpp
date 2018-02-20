@@ -48,7 +48,7 @@ void Nwa::SequenceAlign()
         {
             // scores indices correlate with Direction enum
             short scores[3];
-            bool isMatch = ff1.GetSequence()[r] == ff2.GetSequence()[c];
+            bool isMatch = ff1.GetSequence()[r-1] == ff2.GetSequence()[c-1];
             // Score of neighbor cell to the above left + (match [1] or mismatch score [-1])
             scores[ABOVELEFT] = scoreTable[r-1][c-1] + (isMatch ? 1 : -1);
             // Score of neighbor cell to the left + gap score [-1]
@@ -56,7 +56,8 @@ void Nwa::SequenceAlign()
             // Score of neighbor cell above + gap score [-1]
             scores[ABOVE] = scoreTable[r-1][c] + -1;
             // get max of values
-            char maxDir = std::distance(scores, std::max_element(scores, scores + 3));
+            Direction maxDir = scores[ABOVELEFT] >= scores[LEFT] ? ABOVELEFT : LEFT;
+            maxDir = scores[maxDir] >= scores[ABOVE] ? maxDir : ABOVE;
             // set traceback direction
             directionTable[r][c] = maxDir;
             // set score table
@@ -64,9 +65,6 @@ void Nwa::SequenceAlign()
         }
     }
     this->score = scoreTable[ff1.GetSequence().size()][ff2.GetSequence().size()];
-    
-    
-
     
     int maxSize = std::max(ff1.GetSequence().size(), ff2.GetSequence().size());
     seq1.clear();
@@ -116,6 +114,7 @@ void Nwa::Write()
 }
 
 
+//
 //for(int i=0; i<ff1.GetSequence().size()+1; i++)    //This loops on the rows.
 //{
 //    for(int j=0; j<ff2.GetSequence().size()+1; j++) //This loops on the columns
@@ -123,5 +122,14 @@ void Nwa::Write()
 //        std::cout << scoreTable[i][j]  << "  ";
 //        }
 //        std::cout << std::endl;
+//        }
+//        
+//        for(int i=0; i<ff1.GetSequence().size()+1; i++)    //This loops on the rows.
+//        {
+//            for(int j=0; j<ff2.GetSequence().size()+1; j++) //This loops on the columns
+//            {
+//                printf("%x ",directionTable[i][j]);
+//            }
+//            std::cout << std::endl;
 //        }
 
