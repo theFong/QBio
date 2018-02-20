@@ -8,7 +8,7 @@
 #pragma once
 
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <unordered_map>
 
 class FastaFile
@@ -21,7 +21,7 @@ class FastaFile
     FastaFile(const std::string& source);
     std::unordered_map<char, int> AminoAcidCount();
     std::string GetHeader();
-    std::string GetSequence();
+    const std::string& GetSequence();
     void Write(const std::unordered_map<char, int> &count);
 };
 

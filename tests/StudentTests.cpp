@@ -73,28 +73,28 @@ TEST_CASE("Pairwise Match Tests", "[student]")
 		bool result = CheckTextFilesSame("match.result", "sampleoutput/Small_Test_Comparison.result");
 		REQUIRE(result);
 	}
-//	SECTION("TAS2R16 Comparison")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/TAS2R16_Homo_sapiens.fasta",
-//			"input/TAS2R16_Pan_troglodytes.fasta"
-//		};
-//		ProcessCommandArgs(3, argv);
-//		bool result = CheckTextFilesSame("match.result", "sampleoutput/TAS2R16_Comparison.result");
-//		REQUIRE(result);
-//	}
-	//SECTION("Ebola Comparison (run this in release!!)")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/Zaire_ebolavirus.fasta",
-	//		"input/Reston_ebolavirus.fasta"
-	//	};
-	//	ProcessCommandArgs(3, argv);
-	//	bool result = CheckTextFilesSame("match.result", "sampleoutput/Ebola_Zaire_vs_Reston_Comparison.result");
-	//	REQUIRE(result);
-	//}
+	SECTION("TAS2R16 Comparison")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/TAS2R16_Homo_sapiens.fasta",
+			"input/TAS2R16_Pan_troglodytes.fasta"
+		};
+		ProcessCommandArgs(3, argv);
+		bool result = CheckTextFilesSame("match.result", "sampleoutput/TAS2R16_Comparison.result");
+		REQUIRE(result);
+	}
+	SECTION("Ebola Comparison (run this in release!!)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/Zaire_ebolavirus.fasta",
+			"input/Reston_ebolavirus.fasta"
+		};
+		ProcessCommandArgs(3, argv);
+		bool result = CheckTextFilesSame("match.result", "sampleoutput/Ebola_Zaire_vs_Reston_Comparison.result");
+		REQUIRE(result);
+	}
 	//SECTION("Ebola Comparison - Timed (run this in release!!)")
 	//{
 	//	const char* argv[] = {

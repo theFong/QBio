@@ -7,16 +7,16 @@
 //
 #pragma once
 
-#include <stdio.h>
+#include <cstdio>
 #include "FastaFile.h"
 
 class Nwa
 {
-    FastaFile ff1;
-    FastaFile ff2;
-    short score;
-    std::string seq1;
-    std::string seq2;
+    FastaFile mFf1;
+    FastaFile mFf2;
+    short mScore;
+    std::string mSeq1;
+    std::string mSeq2;
     
 public:
     Nwa(const FastaFile &ff1,const FastaFile &ff2);

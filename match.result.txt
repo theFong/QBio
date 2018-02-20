@@ -2,7 +2,7 @@ A: Small test 1
 B: Small test 2
 Score: -1
 
-CGTGAATTCAT
-   || || | 
-___GACTT_AC
+TCAAC_TTTTACAAGGT_G_C_
+||||||||||||||||||||||
+TCAAC_TTTTACAAGGT_G_C_
 

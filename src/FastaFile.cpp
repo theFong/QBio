@@ -22,7 +22,7 @@ FastaFile::FastaFile(const std::string& source)
     Read(source);
 }
 
-std::string FastaFile::GetSequence()
+const std::string& FastaFile::GetSequence()
 {
     return mSequence;
 }
