@@ -9,6 +9,7 @@
 
 #include <string>
 #include <stdio.h>
+#include <unordered_map>
 
 class FastaFile
 {
@@ -19,8 +20,9 @@ class FastaFile
     public:
     FastaFile(const std::string& source);
     FastaFile(const std::string& source1, const std::string& source2);
-    int AminoAcidCount();
+    std::unordered_map<char, int> AminoAcidCount();
     std::string GetHeader();
     std::string GetSequence();
+    void WriteAminoCount(const std::unordered_map<char, int> &count);
 };
 

@@ -17,7 +17,7 @@ TEST_CASE("Function test cases", "[student]")
     SECTION("Read Fasta File")
     {
         FastaFile ff("input/Small_Test1.fasta");
-        bool test = (ff.GetHeader() == ">Small test 1" && ff.GetSequence() == "CGTGAATTCAT");
+        bool test = (ff.GetHeader() == "Small test 1" && ff.GetSequence() == "CGTGAATTCAT");
         REQUIRE(test);
     }
 }
