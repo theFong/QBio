@@ -1,5 +1,5 @@
 //
-//  Fasta.cpp
+//  FastaFile.cpp
 //  pa3
 //
 //  Created by Alec Fong on 2/18/18.
@@ -24,12 +24,12 @@ FastaFile::FastaFile(const std::string& source)
 
 std::string FastaFile::GetSequence()
 {
-    return sequence;
+    return mSequence;
 }
 
 std::string FastaFile::GetHeader()
 {
-    return header;
+    return mHeader;
 }
 
 void FastaFile::Read(const std::string& source)
@@ -42,13 +42,13 @@ void FastaFile::Read(const std::string& source)
     {
         size = file.tellg(); // Save the size of the file
         file.seekg(0, std::ios::beg); // Seek back to start of file
-        std::getline(file, this->header);
-        this->header.erase(0,1);
-        this->sequence.reserve(static_cast<unsigned int>(size) - this->header.length());
+        std::getline(file, this->mHeader);
+        this->mHeader.erase(0,1);
+        this->mSequence.reserve(static_cast<unsigned int>(size) - this->mHeader.length());
         std::string buf;
         while(std::getline(file,buf))
         {
-            this->sequence.append(buf);
+            this->mSequence.append(buf);
         }
         file.close();
         
@@ -145,7 +145,7 @@ std::unordered_map<char, int> FastaFile::AminoAcidCount()
     };
     
     char state = 0;
-    for (char c : sequence) {
+    for (char c : mSequence) {
         char nextInstr = stateMachine[int(state)][baseToInd[c]];
         
         // change state
@@ -162,7 +162,7 @@ std::unordered_map<char, int> FastaFile::AminoAcidCount()
     return aminoCount;
 }
 
-void FastaFile::WriteAminoCount(const std::unordered_map<char, int> &count)
+void FastaFile::Write(const std::unordered_map<char, int> &count)
 {
     std::unordered_map<char, std::string> stringify =
     {
@@ -200,15 +200,11 @@ void FastaFile::WriteAminoCount(const std::unordered_map<char, int> &count)
     std::ofstream out("amino.txt", std::ios::out|std::ios::trunc);
     if (out.is_open())
     {
-        out << header << std::endl;
+        out << mHeader << std::endl;
         out << "Total amino acids produced: " << sum << std::endl;
         for (auto i = ordered.begin(); i!= ordered.end(); ++i)
         {
             out << stringify[(*i).first] << (*i).second << ((std::next(i) != ordered.end()) ? "\n" : "");
         }
-        
     }
-    
-    
 }
-

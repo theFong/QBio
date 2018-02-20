@@ -2,7 +2,7 @@
 #include "SrcMain.h"
 #include <string>
 #include <chrono>
-#include "FastaFile.cpp"
+#include "FastaFile.h"
 
 // Helper function declarations (don't change these)
 extern bool CheckFileMD5(const std::string& fileName, const std::string& expected);
@@ -36,26 +36,26 @@ TEST_CASE("Amino Acids Tests", "[student]")
 		bool result = CheckTextFilesSame("amino.txt", "sampleoutput/TAS2R16_amino.txt");
 		REQUIRE(result);
 	}
-	//SECTION("A1C1")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/A1C1_Homo_sapiens.fasta"
-	//	};
-	//	ProcessCommandArgs(2, argv);
-	//	bool result = CheckTextFilesSame("amino.txt", "sampleoutput/A1C1_amino.txt");
-	//	REQUIRE(result);
-	//}
-	//SECTION("Ebola")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/Zaire_ebolavirus.fasta"
-	//	};
-	//	ProcessCommandArgs(2, argv);
-	//	bool result = CheckTextFilesSame("amino.txt", "sampleoutput/Zaire_amino.txt");
-	//	REQUIRE(result);
-	//}
+	SECTION("A1C1")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/A1C1_Homo_sapiens.fasta"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("amino.txt", "sampleoutput/A1C1_amino.txt");
+		REQUIRE(result);
+	}
+	SECTION("Ebola")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/Zaire_ebolavirus.fasta"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("amino.txt", "sampleoutput/Zaire_amino.txt");
+		REQUIRE(result);
+	}
 }
 
 // Provided pairwise match tests
