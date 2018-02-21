@@ -95,22 +95,22 @@ TEST_CASE("Pairwise Match Tests", "[student]")
 		bool result = CheckTextFilesSame("match.result", "sampleoutput/Ebola_Zaire_vs_Reston_Comparison.result");
 		REQUIRE(result);
 	}
-	//SECTION("Ebola Comparison - Timed (run this in release!!)")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/Zaire_ebolavirus.fasta",
-	//		"input/Reston_ebolavirus.fasta"
-	//	};
-	//	auto start = std::chrono::high_resolution_clock::now();
-	//	ProcessCommandArgs(3, argv);
-	//	auto end = std::chrono::high_resolution_clock::now();
-	//	auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-	//	float seconds = duration / 1000000000.0f;
+	SECTION("Ebola Comparison - Timed (run this in release!!)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/Zaire_ebolavirus.fasta",
+			"input/Reston_ebolavirus.fasta"
+		};
+		auto start = std::chrono::high_resolution_clock::now();
+		ProcessCommandArgs(3, argv);
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+		float seconds = duration / 1000000000.0f;
 
-	//	bool result = CheckTextFilesSame("match.result", "sampleoutput/Ebola_Zaire_vs_Reston_Comparison.result");
-	//	REQUIRE(result);
-	//	WARN("****Zaire timed test took: " << seconds << "s****");
-	//	REQUIRE(seconds < 7.0f);
-	//}
+		bool result = CheckTextFilesSame("match.result", "sampleoutput/Ebola_Zaire_vs_Reston_Comparison.result");
+		REQUIRE(result);
+		WARN("****Zaire timed test took: " << seconds << "s****");
+		REQUIRE(seconds < 7.0f);
+	}
 }
