@@ -17,9 +17,10 @@ class Nwa
     short mScore;
     std::string mSeq1;
     std::string mSeq2;
-    
+    std::string BuildMatch(const std::string &a,const std::string &b);
 public:
     Nwa(const FastaFile &ff1,const FastaFile &ff2);
+    
     void SequenceAlign();
     void Write();
 };

@@ -194,53 +194,58 @@ void Nwa::SequenceAlign()
 //    }
 //}
 
-std::string GetMatchSequence(const std::string& one,const std::string& two) noexcept
+std::string Nwa::BuildMatch(const std::string &a,const std::string &b)
 {
-    std::string result = "";
-    for(int index = 0; index < one.length(); index++)
+    std::string matchStr = "";
+    for(int i = 0; i < a.length(); i++)
     {
-        if(one.c_str()[index] == two.c_str()[index])
+        if(a[i] == b[i])
         {
-            result += "|";
+            matchStr.push_back('|');
         }
         else
         {
-            result += " ";
+            matchStr.push_back(' ');
         }
     }
-    return result;
+    return matchStr;
 }
 
 void Nwa::Write()
 {
-    //set ofstream to the output file
-    std::ofstream solution ("match.result");
-    solution << "A: " <<  mFf1.GetHeader() << "\n";
-    solution << "B: " <<  mFf2.GetHeader() << "\n";
-    solution << "Score: " << mScore << "\n" << "\n";
-    std::string ALine = "";
-    std::string MatchLine = "";
-    std::string BLine = "";
-    
-    int index = 0;
-    while(index < mSeq1.length())
+    std::ofstream out ("match.result", std::ios::out|std::ios::trunc);
+    if (out.is_open())
     {
-        int offset = 70;
-        if(index + 70 > mSeq1.length())
-        {
-            offset = (int) mSeq1.length()  - index;
-        }
-        ALine = mSeq1.substr(index, offset);
-        BLine = mSeq2.substr(index, offset);
-        MatchLine = GetMatchSequence(ALine,BLine);
+        // write out header
+        out << "A: " <<  mFf1.GetHeader() << std::endl;
+        out << "B: " <<  mFf2.GetHeader() << std::endl;
+        out << "Score: " << mScore;
+        out << std::endl << std::endl;
+        std::string line1 = "";
+        std::string matchLine = "";
+        std::string line2 = "";
         
-        solution << ALine << "\n";
-        solution << MatchLine << "\n";
-        solution << BLine << "\n";
-        solution << "\n";
-        index = index + offset;
+        int i = 0;
+        while(i < mSeq1.length())
+        {
+            int lineLen = 70;
+            if(i + 70 > mSeq1.length())
+            {
+                lineLen = mSeq1.length()  - i;
+            }
+            line1 = mSeq1.substr(i, lineLen);
+            line2 = mSeq2.substr(i, lineLen);
+            matchLine = BuildMatch(line1,line2);
+            
+            out << line1 << std::endl;
+            out << matchLine << std::endl;
+            out << line2 << std::endl;
+            out << std::endl;
+            
+            i = i + lineLen;
+        }
+        out.close();
     }
-    solution.close();
 }
 
 
