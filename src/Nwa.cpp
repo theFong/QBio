@@ -43,7 +43,7 @@ void Nwa::SequenceAlign()
         directionTable[0][c] = LEFT;
     }
     
-//     main loop
+    //     main loop
     for (int r = 1; r < scoreTable.size(); ++r)
     {
         for (int c = 1; c < scoreTable[0].size(); ++c)
@@ -111,89 +111,6 @@ void Nwa::SequenceAlign()
     
 }
 
-//void Nwa::Write()
-//{
-//    std::ofstream out("match.result", std::ios::out|std::ios::trunc);
-//    if (out.is_open())
-//    {
-//        out << "A: " << mFf1.GetHeader() << std::endl;
-//        out << "B: " << mFf2.GetHeader() << std::endl;
-//        out << "Score: " << this->mScore;
-//        
-//        enum Line : char { SEQ1, SEQ2, SIML };
-//        // will change to SEQ1
-//        Line toggle = SEQ2;
-//        
-//        int seq1Count = 0;
-//        int seq2Count = 0;
-//        int simlCount = 0;
-//        
-//        for (int i = 0; i < mSeq1.size()*3; ++i) {
-//            bool over = seq1Count >= mSeq1.size() || seq2Count >= mSeq2.size() || simlCount >= mSeq1.size();
-//            if((i % 70) ==  0 || over)
-//            {
-//                if (over)
-//                {
-//                    if (seq1Count >= mSeq1.size())
-//                    {
-//                        seq1Count = 0;
-//                    }
-//                    else if (seq2Count >= mSeq2.size())
-//                    {
-//                        seq2Count =  0;
-//                    }
-//                    else if(simlCount >= mSeq1.size())
-//                    {
-//                        simlCount = 0;
-//                    }
-//                }
-//                // set toggle
-//                switch (toggle) {
-//                    case SEQ1:
-//                        toggle = SIML;
-//                        break;
-//                        
-//                    case SEQ2:
-//                        toggle = SEQ1;
-//                        out << std::endl;
-//                        break;
-//                        
-//                    case SIML:
-//                        toggle = SEQ2;
-//                        break;
-//                        
-//                    default:
-//                        break;
-//                }
-//
-//                out << std::endl;
-//            }
-//            switch (toggle) {
-//                case SEQ1:
-//                    out << mSeq1[seq1Count];
-//                    ++seq1Count;
-//                    break;
-//                    
-//                case SEQ2:
-//                    out << mSeq2[seq2Count];
-//                    ++seq2Count;
-//                    break;
-//                    
-//                case SIML:
-//                    out << (mSeq1[simlCount] == mSeq2[simlCount] ? '|' : ' ');
-//                    ++simlCount;
-//                    break;
-//                    
-//                default:
-//                    // do nothing
-//                    break;
-//            }
-//            
-//        }
-//        out << std::endl << std::endl;
-//    }
-//}
-
 std::string Nwa::BuildMatch(const std::string &a,const std::string &b)
 {
     std::string matchStr = "";
@@ -221,6 +138,7 @@ void Nwa::Write()
         out << "B: " <<  mFf2.GetHeader() << std::endl;
         out << "Score: " << mScore;
         out << std::endl << std::endl;
+        
         std::string line1 = "";
         std::string matchLine = "";
         std::string line2 = "";
@@ -233,10 +151,12 @@ void Nwa::Write()
             {
                 lineLen = mSeq1.length()  - i;
             }
+            
             line1 = mSeq1.substr(i, lineLen);
             line2 = mSeq2.substr(i, lineLen);
             matchLine = BuildMatch(line1,line2);
             
+            // write out lines
             out << line1 << std::endl;
             out << matchLine << std::endl;
             out << line2 << std::endl;
@@ -248,23 +168,4 @@ void Nwa::Write()
     }
 }
 
-
-//
-//for(int i=0; i<mFf1.GetSequence().size()+1; i++)    //This loops on the rows.
-//{
-//    for(int j=0; j<mFf2.GetSequence().size()+1; j++) //This loops on the columns
-//    {
-//        std::cout << scoreTable[i][j]  << "  ";
-//        }
-//        std::cout << std::endl;
-//        }
-//        
-//        for(int i=0; i<mFf1.GetSequence().size()+1; i++)    //This loops on the rows.
-//        {
-//            for(int j=0; j<mFf2.GetSequence().size()+1; j++) //This loops on the columns
-//            {
-//                printf("%x ",directionTable[i][j]);
-//            }
-//            std::cout << std::endl;
-//        }
 
