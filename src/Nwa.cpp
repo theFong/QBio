@@ -139,9 +139,9 @@ void Nwa::Write()
         out << "Score: " << mScore;
         out << std::endl << std::endl;
         
-        std::string line1 = "";
-        std::string matchLine = "";
-        std::string line2 = "";
+        std::string line1;
+        std::string matchLine;
+        std::string line2;
         
         int i = 0;
         while(i < mSeq1.length())
